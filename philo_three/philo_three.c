@@ -6,38 +6,48 @@
 /*   By: tfarenga <tfarenga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 14:31:49 by tfarenga          #+#    #+#             */
-/*   Updated: 2020/11/06 16:43:16 by tfarenga         ###   ########.fr       */
+/*   Updated: 2020/11/06 17:36:32 by tfarenga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_three.h"
 
+void	ft_kill_pr(t_info *info)
+{
+	int i;
+
+	i = 0;
+	while (i < info->number_philo)
+	{
+		kill(info->process[i], SIGKILL);
+		i++;
+	}
+}
+
 int		ft_sim_start(t_info *info)
 {
-	pthread_t		sim;
-	int				i;
+	int	i;
 
 	info->sim_start = ft_time();
 	i = 0;
 	while (i < info->number_philo)
 	{
-		if (pthread_create(&sim, 0, &ft_sim_phi, \
-		(void*)&info->philo[i]))
+		info->philo[i].last_meal = ft_time();
+		info->process[i] = fork();
+		if (info->process[i] < 0)
 		{
 			ft_error(ERROR_FOR);
+			ft_kill_pr(info);
 			return (0);
 		}
-		info->philo[i].last_meal = ft_time();
-		if (pthread_detach(sim))
-		{
-			ft_error(ERROR_FIFE);
-			return (0);
-		}
+		else if (info->process[i] == 0)
+			ft_sim_phi(&info->philo[i]);
 		usleep(100);
 		i++;
 	}
-	while (!ft_stop_sim(info))
-		usleep(100);
+	ft_sim_control(info);
+	sem_wait(info->end_sim);
+	ft_kill_pr(info);
 	return (1);
 }
 

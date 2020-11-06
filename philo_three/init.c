@@ -6,7 +6,7 @@
 /*   By: tfarenga <tfarenga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:09:39 by tfarenga          #+#    #+#             */
-/*   Updated: 2020/11/06 16:45:45 by tfarenga         ###   ########.fr       */
+/*   Updated: 2020/11/06 17:51:50 by tfarenga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ t_info	ft_init_info(void)
 	info.time_live = 0;
 	info.number_philo = 0;
 	info.number_eat = 0;
-	info.finish = 0;
 	return (info);
 }
 
@@ -29,6 +28,7 @@ int		ft_init_obj_sem(t_info *info)
 {
 	sem_unlink("/fork");
 	sem_unlink("/pencil");
+	sem_unlink("/end_sim");
 	info->pencil = sem_open("/pencil", O_CREAT | O_EXCL, 0666, 1);
 	if (info->pencil == SEM_FAILED)
 	{
@@ -42,20 +42,35 @@ int		ft_init_obj_sem(t_info *info)
 		ft_error(ERROR_THREE);
 		return (0);
 	}
+	info->end_sim = sem_open("/end_sim", O_CREAT | O_EXCL, \
+	0666, 0);
+	if (info->end_sim == SEM_FAILED)
+	{
+		ft_error(ERROR_THREE);
+		return (0);
+	}
 	return (1);
 }
 
-int		ft_init_status_sem(t_info *info)
+int		ft_init_sem(t_info *info)
 {
 	int		i;
 
 	i = 0;
 	while (i < info->number_philo)
 	{
-		sem_unlink("/currently_eating");
-		info->philo[i].eating_now = sem_open("/currently_eating", \
+		sem_unlink("/eating_now");
+		info->philo[i].eating_now = sem_open("/eating_now", \
 		O_CREAT | O_EXCL, 0666, 1);
 		if (info->philo[i].eating_now == SEM_FAILED)
+		{
+			ft_error(ERROR_THREE);
+			return (0);
+		}
+		sem_unlink("/eating_finish");
+		info->philo[i].eating_finish = sem_open("/eating_finish", \
+		O_CREAT | O_EXCL, 0666, 0);
+		if (info->philo[i].eating_finish == SEM_FAILED)
 		{
 			ft_error(ERROR_THREE);
 			return (0);
@@ -74,6 +89,13 @@ int		ft_allocate_memory(t_info *info)
 		ft_error(ERROR_TWO);
 		return (0);
 	}
+	info->process = (pid_t*)malloc(sizeof(pid_t) \
+	* info->number_philo);
+	if (!info->process)
+	{
+		ft_error(ERROR_TWO);
+		return (0);
+	}
 	return (1);
 }
 
@@ -85,7 +107,7 @@ int		ft_init(t_info *info)
 		return (0);
 	if (!ft_init_obj_sem(info))
 		return (0);
-	if (!ft_init_status_sem(info))
+	if (!ft_init_sem(info))
 		return (0);
 	i = 0;
 	while (i < info->number_philo)

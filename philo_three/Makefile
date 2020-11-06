@@ -6,7 +6,7 @@
 #    By: tfarenga <tfarenga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/02 14:02:00 by tfarenga          #+#    #+#              #
-#    Updated: 2020/11/06 16:46:05 by tfarenga         ###   ########.fr        #
+#    Updated: 2020/11/06 17:33:29 by tfarenga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = clang
 FLAGS = -Wall -Werror -Wextra
 LIBS = -lpthread
 
-SRC = philo_three.c other.c other_next.c functions.c init.c sim.c
+SRC = philo_three.c other.c other_next.c functions.c init.c sim.c text.c
 OBJ = $(SRC:.c=.o)
 
 %.o : %.c
