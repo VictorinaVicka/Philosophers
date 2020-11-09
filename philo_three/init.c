@@ -6,7 +6,7 @@
 /*   By: tfarenga <tfarenga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:09:39 by tfarenga          #+#    #+#             */
-/*   Updated: 2020/11/06 17:51:50 by tfarenga         ###   ########.fr       */
+/*   Updated: 2020/11/09 10:59:44 by tfarenga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,13 @@ int		ft_init_obj_sem(t_info *info)
 		ft_error(ERROR_THREE);
 		return (0);
 	}
-	info->fork = sem_open("/fork", O_CREAT | O_EXCL, 0666, \
-	info->number_philo);
+	info->fork = sem_open("/fork", O_CREAT | O_EXCL, 0666, info->number_philo);
 	if (info->fork == SEM_FAILED)
 	{
 		ft_error(ERROR_THREE);
 		return (0);
 	}
-	info->end_sim = sem_open("/end_sim", O_CREAT | O_EXCL, \
-	0666, 0);
+	info->end_sim = sem_open("/end_sim", O_CREAT | O_EXCL, 0666, 0);
 	if (info->end_sim == SEM_FAILED)
 	{
 		ft_error(ERROR_THREE);
@@ -60,16 +58,16 @@ int		ft_init_sem(t_info *info)
 	while (i < info->number_philo)
 	{
 		sem_unlink("/eating_now");
-		info->philo[i].eating_now = sem_open("/eating_now", \
-		O_CREAT | O_EXCL, 0666, 1);
+		info->philo[i].eating_now =
+						sem_open("/eating_now", O_CREAT | O_EXCL, 0666, 1);
 		if (info->philo[i].eating_now == SEM_FAILED)
 		{
 			ft_error(ERROR_THREE);
 			return (0);
 		}
 		sem_unlink("/eating_finish");
-		info->philo[i].eating_finish = sem_open("/eating_finish", \
-		O_CREAT | O_EXCL, 0666, 0);
+		info->philo[i].eating_finish =
+						sem_open("/eating_finish", O_CREAT | O_EXCL, 0666, 0);
 		if (info->philo[i].eating_finish == SEM_FAILED)
 		{
 			ft_error(ERROR_THREE);
@@ -82,15 +80,14 @@ int		ft_init_sem(t_info *info)
 
 int		ft_allocate_memory(t_info *info)
 {
-	info->philo = (t_description*)malloc(sizeof(t_description) \
-	* info->number_philo);
+	info->philo =
+			(t_description*)malloc(sizeof(t_description) * info->number_philo);
 	if (!info->philo)
 	{
 		ft_error(ERROR_TWO);
 		return (0);
 	}
-	info->process = (pid_t*)malloc(sizeof(pid_t) \
-	* info->number_philo);
+	info->process = (pid_t*)malloc(sizeof(pid_t) * info->number_philo);
 	if (!info->process)
 	{
 		ft_error(ERROR_TWO);

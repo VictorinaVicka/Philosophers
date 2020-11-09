@@ -6,7 +6,7 @@
 /*   By: tfarenga <tfarenga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 14:31:49 by tfarenga          #+#    #+#             */
-/*   Updated: 2020/11/06 17:36:32 by tfarenga         ###   ########.fr       */
+/*   Updated: 2020/11/09 11:00:48 by tfarenga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,10 @@ void	ft_parser(char **argv, t_info *info)
 		info->number_eat = ft_atoi(argv[5]);
 }
 
-int		ft_check(int argc, char **argv)
+int		main(int argc, char **argv)
 {
+	t_info		info;
+
 	if (argc < 5 || argc > 6)
 		return (ft_error(ERROR_ONE));
 	if (!ft_isnumber(argv[1]))
@@ -76,15 +78,6 @@ int		ft_check(int argc, char **argv)
 	if (argv[5])
 		if (!ft_isnumber(argv[5]))
 			return (ft_error(ERROR_ONE));
-	return (1);
-}
-
-int		main(int argc, char **argv)
-{
-	t_info		info;
-
-	if (!ft_check(argc, argv))
-		return (1);
 	info = ft_init_info();
 	ft_parser(argv, &info);
 	if (!ft_init(&info))

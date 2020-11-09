@@ -6,7 +6,7 @@
 /*   By: tfarenga <tfarenga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:31:44 by tfarenga          #+#    #+#             */
-/*   Updated: 2020/11/06 17:53:35 by tfarenga         ###   ########.fr       */
+/*   Updated: 2020/11/09 11:01:25 by tfarenga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,7 @@ void	ft_sim_control(t_info *info)
 {
 	pthread_t	sim;
 
-	if (pthread_create(&sim, 0, &ft_eating_control, \
-	(void*)info))
+	if (pthread_create(&sim, 0, &ft_eating_control, (void*)info))
 	{
 		ft_error(ERROR_FOR);
 		ft_kill_pr(info);

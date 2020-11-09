@@ -6,7 +6,7 @@
 /*   By: tfarenga <tfarenga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 14:32:01 by tfarenga          #+#    #+#             */
-/*   Updated: 2020/11/06 17:48:04 by tfarenga         ###   ########.fr       */
+/*   Updated: 2020/11/09 11:17:45 by tfarenga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct		s_info
 	pid_t			*process;
 }					t_info;
 
-int					ft_check(int argc, char **argv);
 void				ft_kill_pr(t_info *info);
 
 int					ft_error(char *str);
