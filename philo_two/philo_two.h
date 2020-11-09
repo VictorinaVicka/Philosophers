@@ -6,7 +6,7 @@
 /*   By: tfarenga <tfarenga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 14:08:02 by tfarenga          #+#    #+#             */
-/*   Updated: 2020/11/06 16:15:29 by tfarenga         ###   ########.fr       */
+/*   Updated: 2020/11/09 10:48:52 by tfarenga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ typedef struct		s_info
 	sem_t			*pencil;
 	int				sim_start;
 }					t_info;
-
-int					ft_check(int argc, char **argv);
 
 int					ft_error(char *str);
 int					ft_isnumber(char *str);

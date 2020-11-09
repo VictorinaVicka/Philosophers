@@ -6,7 +6,7 @@
 /*   By: tfarenga <tfarenga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 14:02:04 by tfarenga          #+#    #+#             */
-/*   Updated: 2020/11/06 16:14:17 by tfarenga         ###   ########.fr       */
+/*   Updated: 2020/11/09 10:48:30 by tfarenga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int		ft_sim_start(t_info *info)
 	i = 0;
 	while (i < info->number_philo)
 	{
-		if (pthread_create(&sim, 0, &ft_sim_phi, \
-		(void*)&info->philo[i]))
+		if (pthread_create(&sim, 0, &ft_sim_phi, (void*)&info->philo[i]))
 		{
 			ft_error(ERROR_FOR);
 			return (0);
@@ -51,8 +50,10 @@ void	ft_parser(char **argv, t_info *info)
 		info->number_eat = ft_atoi(argv[5]);
 }
 
-int		ft_check(int argc, char **argv)
+int		main(int argc, char **argv)
 {
+	t_info		info;
+
 	if (argc < 5 || argc > 6)
 		return (ft_error(ERROR_ONE));
 	if (!ft_isnumber(argv[1]))
@@ -66,15 +67,6 @@ int		ft_check(int argc, char **argv)
 	if (argv[5])
 		if (!ft_isnumber(argv[5]))
 			return (ft_error(ERROR_ONE));
-	return (1);
-}
-
-int		main(int argc, char **argv)
-{
-	t_info		info;
-
-	if (!ft_check(argc, argv))
-		return (1);
 	info = ft_init_info();
 	ft_parser(argv, &info);
 	if (!ft_init(&info))

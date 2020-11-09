@@ -6,7 +6,7 @@
 /*   By: tfarenga <tfarenga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:31:44 by tfarenga          #+#    #+#             */
-/*   Updated: 2020/11/06 16:12:59 by tfarenga         ###   ########.fr       */
+/*   Updated: 2020/11/09 10:47:45 by tfarenga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ void	*ft_check_phi(void *arg)
 	{
 		if (sem_wait(phi->eating_now) < 0)
 			return ((void*)0);
-		if (((ft_time() - phi->last_meal) > \
-		phi->info->time_live))
+		if (((ft_time() - phi->last_meal) > phi->info->time_live))
 		{
 			ft_text(phi, "death");
 			phi->info->finish = 1;

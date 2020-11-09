@@ -6,7 +6,7 @@
 /*   By: tfarenga <tfarenga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:09:39 by tfarenga          #+#    #+#             */
-/*   Updated: 2020/11/06 16:11:59 by tfarenga         ###   ########.fr       */
+/*   Updated: 2020/11/09 10:46:47 by tfarenga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ int		ft_init_obj_sem(t_info *info)
 		ft_error(ERROR_THREE);
 		return (0);
 	}
-	info->fork = sem_open("/fork", O_CREAT | O_EXCL, 0666, \
-	info->number_philo);
+	info->fork = sem_open("/fork", O_CREAT | O_EXCL, 0666, info->number_philo);
 	if (info->fork == SEM_FAILED)
 	{
 		ft_error(ERROR_THREE);
@@ -52,9 +51,9 @@ int		ft_init_status_sem(t_info *info)
 	i = 0;
 	while (i < info->number_philo)
 	{
-		sem_unlink("/currently_eating");
-		info->philo[i].eating_now = sem_open("/currently_eating", \
-		O_CREAT | O_EXCL, 0666, 1);
+		sem_unlink("/eating_now");
+		info->philo[i].eating_now =
+					sem_open("/eating_now", O_CREAT | O_EXCL, 0666, 1);
 		if (info->philo[i].eating_now == SEM_FAILED)
 		{
 			ft_error(ERROR_THREE);
@@ -67,8 +66,8 @@ int		ft_init_status_sem(t_info *info)
 
 int		ft_allocate_memory(t_info *info)
 {
-	info->philo = (t_description*)malloc(sizeof(t_description) \
-	* info->number_philo);
+	info->philo =
+			(t_description*)malloc(sizeof(t_description) * info->number_philo);
 	if (!info->philo)
 	{
 		ft_error(ERROR_TWO);
