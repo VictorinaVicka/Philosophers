@@ -6,7 +6,7 @@
 /*   By: tfarenga <tfarenga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 12:27:20 by tfarenga          #+#    #+#             */
-/*   Updated: 2020/11/06 13:53:52 by tfarenga         ###   ########.fr       */
+/*   Updated: 2020/11/09 10:22:56 by tfarenga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,15 @@ int		ft_mutex_init(t_info *info)
 
 int		ft_allocate_memory(t_info *info)
 {
-	info->philo = (t_description*)malloc(sizeof(t_description) \
-	* info->number_philo);
+	info->philo = (t_description*)malloc(sizeof(t_description)
+				* info->number_philo);
 	if (!info->philo)
 	{
 		ft_error(ERROR_TWO);
 		return (0);
 	}
-	info->fork = (pthread_mutex_t*)malloc(sizeof(pthread_mutex_t) \
-	* info->number_philo);
+	info->fork = (pthread_mutex_t*)malloc(sizeof(pthread_mutex_t)
+				* info->number_philo);
 	if (!info->fork)
 	{
 		ft_error(ERROR_TWO);

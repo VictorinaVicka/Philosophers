@@ -6,7 +6,7 @@
 /*   By: tfarenga <tfarenga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 14:08:02 by tfarenga          #+#    #+#             */
-/*   Updated: 2020/11/03 16:36:12 by tfarenga         ###   ########.fr       */
+/*   Updated: 2020/11/09 10:38:03 by tfarenga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct		s_info
 	int				sim_start;
 }					t_info;
 
-int					ft_check(int argc, char **argv);
 void				ft_parser(char **argv, t_info *info);
 
 int					ft_error(char *str);
